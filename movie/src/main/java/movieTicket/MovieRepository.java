@@ -1,8 +1,8 @@
 package movieTicket;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MovieRepository extends PagingAndSortingRepository<Movie, Long>{
+public interface MovieRepository extends JpaRepository<Movie, Long> {
 
 
 }

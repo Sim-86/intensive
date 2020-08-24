@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head><title>FRONT TEST</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<h1>FRONT TEST</h1>
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6"><a href="/save" role="button" class="btn btn-primary">글 등록</a></div>
+    </div>
+    <br>        <!-- 목록 출력 영역 -->
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+        <tr>
+            <th>id</th>
+            <th>영화제목</th>
+            <th>런타임</th>
+            <th>최종수정일</th>
+        </tr>
+        </thead>
+        <tbody id="tbody"> {{#movie}}
+        <tr>
+            <td>{{id}}</td>
+            <td><a href="/posts/update/{{id}}">{{movieName}}</a></td>
+            <td>{{runTime}}</td>
+        </tr>
+        {{/movie}}
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--index.js 추가-->
+<script src="/js/app/index.js"></script>
+</body>
+</html>
