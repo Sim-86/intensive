@@ -41,14 +41,16 @@ public interface PaymentService {
 3. CQRS
 
 POST http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/orders
-
+```json
 {
 	"product" : "컴퓨터",
 	"qty" : 2,
 	"orderStatus" : "ordermade"
 }
+```
 
 GET http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/orders/1
+```json
 {
     "product": "컴퓨터",
     "qty": 2,
@@ -62,8 +64,10 @@ GET http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazona
         }
     }
 }
+```
 
 GET http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/payments/1
+```json
 {
     "orderId": 1,
     "amount": 1000.0,
@@ -77,8 +81,10 @@ GET http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazona
         }
     }
 }
+```
 
 GET http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/deliveries/1
+```json
 {
     "_embedded": {
         "orderLists": [
@@ -114,10 +120,10 @@ GET http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazona
         }
     }
 }
-
+```
 
 GET http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/orderLists
-
+```json
 {
     "_embedded": {
         "orderLists": [
@@ -153,7 +159,7 @@ GET http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazona
         }
     }
 }
-
+```
 
 
 
