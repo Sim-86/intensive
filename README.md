@@ -225,6 +225,51 @@ public interface PaymentService {
 
 }
 ```
+```java
+@Component
+@Slf4j
+public class PaymentFallback implements PaymentService{
+
+    @Override
+    public void makePayment(Payment payment) {
+        log.info("hystrix!!");
+        //System.out.println("hystrix!!!");
+    }
+
+
+}
+```
+```sh
+020-09-03 04:25:01.584  INFO 1 --- [nio-8080-exec-3] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.585  INFO 1 --- [nio-8080-exec-4] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.609  INFO 1 --- [nio-8080-exec-2] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.612  INFO 1 --- [nio-8080-exec-9] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.625  INFO 1 --- [nio-8080-exec-1] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.659  INFO 1 --- [nio-8080-exec-8] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.689  INFO 1 --- [io-8080-exec-10] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.698  INFO 1 --- [nio-8080-exec-5] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.708  INFO 1 --- [nio-8080-exec-6] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.714  INFO 1 --- [nio-8080-exec-7] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.725  INFO 1 --- [nio-8080-exec-4] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.735  INFO 1 --- [nio-8080-exec-3] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.771  INFO 1 --- [nio-8080-exec-2] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.778  INFO 1 --- [nio-8080-exec-9] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.790  INFO 1 --- [nio-8080-exec-1] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.799  INFO 1 --- [nio-8080-exec-8] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.810  INFO 1 --- [io-8080-exec-10] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.820  INFO 1 --- [nio-8080-exec-5] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.844  INFO 1 --- [nio-8080-exec-6] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.853  INFO 1 --- [nio-8080-exec-7] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.883  INFO 1 --- [nio-8080-exec-3] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.885  INFO 1 --- [nio-8080-exec-4] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.910  INFO 1 --- [nio-8080-exec-2] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.946  INFO 1 --- [nio-8080-exec-1] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.961  INFO 1 --- [nio-8080-exec-9] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.970  INFO 1 --- [nio-8080-exec-8] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.974  INFO 1 --- [io-8080-exec-10] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.981  INFO 1 --- [nio-8080-exec-6] onlineShop.external.PaymentFallback      : hystrix!!
+2020-09-03 04:25:01.994  INFO 1 --- [nio-8080-exec-7] onlineShop.extern
+```
 
 
 8. Autoscale(HPA)
