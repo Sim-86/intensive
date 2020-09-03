@@ -24,7 +24,7 @@
 
 1. REQ/RES
 
-
+```java
 @FeignClient(name="payment", url="${api.url.payment}", fallback = PaymentFallback.class)
 public interface PaymentService {
 
@@ -32,7 +32,7 @@ public interface PaymentService {
     public void makePayment(@RequestBody Payment payment);
 
 }
-
+```
 
 
 2. SAGA
