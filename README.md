@@ -284,6 +284,30 @@ Shortest transaction:	        0.00
 ```
 
 
+
+readiness 제외 하고 
+```sh
+HTTP/1.1 500     0.35 secs:     194 bytes ==> POST http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/orders
+HTTP/1.1 500     1.13 secs:     194 bytes ==> POST http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/orders
+HTTP/1.1 500     1.11 secs:     194 bytes ==> POST http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/orders
+siege aborted due to excessive socket failure; you
+can change the failure threshold in $HOME/.siegerc
+
+Transactions:		        1011 hits
+Availability:		       49.46 %
+Elapsed time:		       22.66 secs
+Data transferred:	        0.41 MB
+Response time:		        0.22 secs
+Transaction rate:	       44.62 trans/sec
+Throughput:		        0.02 MB/sec
+Concurrency:		        9.78
+Successful transactions:        1011
+Failed transactions:	        1033
+Longest transaction:	        1.97
+Shortest transaction:	        0.00
+```
+
+
 10. ConfigMap/Persistence
 
 11. Polyglot
