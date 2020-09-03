@@ -355,6 +355,21 @@ Shortest transaction:	        0.00
 
 10. ConfigMap/Persistence
 
+
+```sh
+          image: 496278789073.dkr.ecr.ap-northeast-2.amazonaws.com/user04-order:latest
+          env:
+          - name: URL
+            valueFrom:
+              configMapKeyRef:
+                name: cm
+                key: url
+          resources:
+            requests:
+              cpu: "250m"
+
+```
+
 11. Polyglot
 
 
