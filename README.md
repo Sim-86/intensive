@@ -229,7 +229,60 @@ public interface PaymentService {
 
 8. Autoscale(HPA)
 
+
+
+NAME                                        REFERENCE          TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/order   Deployment/order   92%/5%    1         10        10         2m32s
+
+
+
 9. readiness probe(zero downtime deployment), liveness probe
+
+```sh
+ sktelecom  ~/Downloads/onlineShop/order  kubectl set image deployment/order order=496278789073.dkr.ecr.ap-northeast-2.amazonaws.com/user04-order:0.0.2 --record
+deployment.extensions/order image updated
+
+~/Downloads/onlineShop/order
+ sktelecom  ~/Downloads/onlineShop/order  kubectl get deploy order -w                                             ✔
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+order   1/1     1            1           15m
+order   2/1     1            2           15m
+order   1/1     1            1           15m
+^C
+~/Downloads/onlineShop/order 33s
+ sktelecom  ~/Downloads/onlineShop/order  kubectl get deploy order -w                                           1 ↵
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+order   1/1     1            1           15m
+^C
+~/Downloads/onlineShop/order 23s
+ sktelecom  ~/Downloads/onlineShop/order  kubectl get pods                                                      1 ↵
+NAME                        READY   STATUS    RESTARTS   AGE
+delivery-5955d7998b-lljcl   1/1     Running   1          60m
+gateway-5489c47b86-t4k9b    1/1     Running   0          84m
+order-8b789cdfb-mvbqx       1/1     Running   0          67s
+payment-cc98c5655-vzjch     1/1     Running   1          60m
+ubuntu                      1/1     Running   0          5h25m
+```
+```sh
+HTTP/1.1 201     0.08 secs:     228 bytes ==> POST http://order:8080/orders
+HTTP/1.1 201     0.01 secs:     228 bytes ==> POST http://order:8080/orders
+HTTP/1.1 201     0.02 secs:     228 bytes ==> POST http://order:8080/orders
+^C
+Lifting the server siege...
+Transactions:		       13398 hits
+Availability:		      100.00 %
+Elapsed time:		       63.15 secs
+Data transferred:	        2.91 MB
+Response time:		        0.05 secs
+Transaction rate:	      212.16 trans/sec
+Throughput:		        0.05 MB/sec
+Concurrency:		        9.90
+Successful transactions:       13398
+Failed transactions:	           0
+Longest transaction:	        1.37
+Shortest transaction:	        0.00
+```
+
 
 10. ConfigMap/Persistence
 
