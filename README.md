@@ -20,25 +20,40 @@
 
 
 
+1. SAGA
 
 
-1. REQ/RES
+PUT http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/deliveries/1
 
-```java
-@FeignClient(name="payment", url="${api.url.payment}", fallback = PaymentFallback.class)
-public interface PaymentService {
+```json
+{
+    "deliveryStatus" : "cancelDelivery",
+	"orderId" : 1
+}
+```
 
-    @RequestMapping(method= RequestMethod.POST, path="/payments")
-    public void makePayment(@RequestBody Payment payment);
+{"eventType":"DeliveryCanceled","timestamp":"20200903032522","id":null,"orderId":1,"deliveryStatus":"cancelDelivery","me":true}
+{"eventType":"OrderCanceled","timestamp":"20200903032523","product":"컴퓨터","qty":2,"id":null,"me":true}
 
+http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/orders/1
+```json
+{
+    "product": "컴퓨터",
+    "qty": 2,
+    "orderStatus": "delivery canceled",
+    "_links": {
+        "self": {
+            "href": "http://order:8080/orders/1"
+        },
+        "order": {
+            "href": "http://order:8080/orders/1"
+        }
+    }
 }
 ```
 
 
-2. SAGA
-
-
-3. CQRS
+2. CQRS
 
 POST http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/orders
 ```json
@@ -47,6 +62,12 @@ POST http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazon
 	"qty" : 2,
 	"orderStatus" : "ordermade"
 }
+```
+Messages
+```json
+{"eventType":"PaymentMade","timestamp":"20200903032044","paymentId":2,"orderId":2,"amount":1000.0,"paymentStatus":"paymentmade","me":true}
+{"eventType":"OrderPlaced","timestamp":"20200903032044","orderId":2,"product":"사과","qty":2,"orderStatus":"ordermade","me":true}
+{"eventType":"DeliveryStarted","timestamp":"20200903032044","id":null,"orderId":2,"deliveryStatus":"startDelivery","me":true}
 ```
 
 GET http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/orders/1
@@ -162,16 +183,57 @@ GET http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazona
 ```
 
 
+3. Correlation
+
+orderId 및 메시지 샘플
+
+{"eventType":"PaymentMade","timestamp":"20200903032044","paymentId":2,"orderId":2,"amount":1000.0,"paymentStatus":"paymentmade","me":true}
+{"eventType":"OrderPlaced","timestamp":"20200903032044","orderId":2,"product":"사과","qty":2,"orderStatus":"ordermade","me":true}
+{"eventType":"DeliveryStarted","timestamp":"20200903032044","id":null,"orderId":2,"deliveryStatus":"startDelivery","me":true}
 
 
-3. Circuit Breaker
 
 
 
+4. REQ/RES
+
+```java
+@FeignClient(name="payment", url="${api.url.payment}", fallback = PaymentFallback.class)
+public interface PaymentService {
+
+    @RequestMapping(method= RequestMethod.POST, path="/payments")
+    public void makePayment(@RequestBody Payment payment);
+
+}
+```
+
+5. Gateway
+앞단 spring cloud gateway 구성 
+http://aca85c435d1a94d479d2c5ce91995bea-693040336.ap-northeast-2.elb.amazonaws.com:8080/***
+
+6. Deploy 
+Good Good
+
+7. Circuit Breaker
+
+```java
+@FeignClient(name="payment", url="${api.url.payment}", fallback = PaymentFallback.class)
+public interface PaymentService {
+
+    @RequestMapping(method= RequestMethod.POST, path="/payments")
+    public void makePayment(@RequestBody Payment payment);
+
+}
+```
 
 
+8. Autoscale(HPA)
 
+9. readiness probe(zero downtime deployment), liveness probe
 
+10. ConfigMap/Persistence
+
+11. Polyglot
 
 
 
